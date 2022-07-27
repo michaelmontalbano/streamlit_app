@@ -62,11 +62,10 @@ if min_nonzero > 5:
     far = far_funct(A,B)
     pod = pod_funct(A,B)
     mindists_AB = np.asarray(metrics.min_dists(img_true, img_pred, cutoff))
-    mindists_BA = np.asarray(metrics.min_dists(img_true, img_pred, cutoff))
-
+    mindists_BA = np.asarray(metrics.min_dists(img_pred, img_true, cutoff))
     st.text(mindists_AB)
     st.text(mindists_BA)
-    hausdorf_distance = metrics.hausdorf(mindists_AB, mindists_BA)
+    hausdorf_distance = metrics.hausdorf(mindists_AB, mindists_BA, k_pct)
     phdk_distance = metrics.PHDK(mindists_AB, mindists_BA)
     gbeta = metrics.G_beta(A, B, mindists_AB, mindists_BA, beta)
 else:
