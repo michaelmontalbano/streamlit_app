@@ -294,8 +294,10 @@ def CSI(cutoff=20):
 
 def FAR(cutoff=15):
     def far(y_true, y_pred):
-        TP = sum(np.where(((y_true-1.0)+y_pred)<1.0,0.0,1.0))
-        FP = sum(np.where(y_pred-y_true<1.0,0.0,1.0))
+        y_true = y_true.flatten()
+        y_pred = y_pred.flatten()
+        TP = np.reduce_sum(np.where(((y_true-1.0)+y_pred)<1.0,0.0,1.0))
+        FP = np.reduce_sum(np.where(y_pred-y_true<1.0,0.0,1.0))
         return FP/(TP+FP+0.000001)
     return far
 
@@ -303,8 +305,8 @@ def POD(cutoff=15):
     # computes the probability of detection
     # POD = PT / TP + FN
     def pod(y_true, y_pred):
-        TP = sum(np.where(((y_true-1)+y_pred)<1.0,0.0,1.0))
-        FN = sum(np.where(y_true-y_pred<1.0,0.0,1.0))
+        TP = np.reduce_sum(np.where(((y_true-1)+y_pred)<1.0,0.0,1.0))
+        FN = np.reduce_sum(np.where(y_true-y_pred<1.0,0.0,1.0))
         return TP/(TP+FN+0.000001)
     return pod
 
