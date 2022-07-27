@@ -11,7 +11,7 @@ from settings import MESH_colors, MESH_bounds
 import metrics
 
 st.title('Model Prediction Metrics')
-model = st.radio("Pick a model.")
+#model = st.radio("Pick a model.")
 number = st.number_input("Pick a sample number (0-939)",0,939)
 cutoff = st.number_input("Pick a cutoff value",0,100)
 multiplier = st.number_input('Pick a multiplier for beta',0,10)
