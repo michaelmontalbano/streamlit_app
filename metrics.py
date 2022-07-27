@@ -226,7 +226,7 @@ def min_dists(A, B, threshold=20):
     return min_dists  
 
 def hausdorf(mindists_AB,mindists_BA):
-    return np.maximum(max(mindists_AB), max(mindists_BA))
+    return np.maximum(np.amax(mindists_AB), np.amax(mindists_BA))
 
 
 def samplewise_RMSE(y_true, y_pred):
