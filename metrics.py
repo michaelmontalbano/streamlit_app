@@ -183,6 +183,7 @@ def distance_1D(x1, x2):
 
 def distance_transform(B):
     # requires B to be binary
+    B = np.where(B, 0, 1)
     G = []
     for row in B:
         # convert row to list
