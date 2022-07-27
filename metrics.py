@@ -1,10 +1,7 @@
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras import backend as K
-from tensorflow.keras import Model
-from tensorflow.keras import Input
-from tensorflow.keras.layers import Concatenate, Dense  
 import math
+import pandas as pd
+
 import cv2, time
 
 def to_tensor(a):
@@ -297,24 +294,18 @@ def CSI(cutoff=20):
 
 def FAR(cutoff=15):
     def far(y_true, y_pred):
-        y_true = tf.where(y_true>cutoff,1.0,0.0)
-        y_pred = tf.where(y_pred>cutoff,1.0,0.0)
-
-        TP = tf.math.reduce_sum(tf.where(((y_true-1.0)+y_pred)<1.0,0.0,1.0))
-        FP = tf.math.reduce_sum(tf.where(y_pred-y_true<1.0,0.0,1.0))
-        return FP/(TP+FP+K.epsilon())
+        TP = sum(np.where(((y_true-1.0)+y_pred)<1.0,0.0,1.0))
+        FP = sum(np.where(y_pred-y_true<1.0,0.0,1.0))
+        return FP/(TP+FP+0.000001)
     return far
 
 def POD(cutoff=15):
     # computes the probability of detection
     # POD = PT / TP + FN
     def pod(y_true, y_pred):
-        y_true = tf.where(y_true>cutoff,1.0,0.0)
-        y_pred = tf.where(y_pred>cutoff,1.0,0.0)
-
-        TP = tf.math.reduce_sum(tf.where(((y_true-1)+y_pred)<1.0,0.0,1.0))
-        FN = tf.math.reduce_sum(tf.where(y_true-y_pred<1.0,0.0,1.0))
-        return TP/(TP+FN+K.epsilon())
+        TP = sum(np.where(((y_true-1)+y_pred)<1.0,0.0,1.0))
+        FN = sum(np.where(y_true-y_pred<1.0,0.0,1.0))
+        return TP/(TP+FN+0.000001)
     return pod
 
 def hausdorf(mindists_AB,mindists_BA):
