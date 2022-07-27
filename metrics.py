@@ -334,7 +334,7 @@ def G_beta(A,B, mindists_AB, mindists_BA, beta):
     y2 = med_AB*n_B + med_BA*n_A
     y = y1*y2
     const = 1 - (y/beta)
-    G_beta = max(const, 0)
+    G_beta = const
     return G_beta
 
 # find the shortest distance between two set of points as numpy arrays
