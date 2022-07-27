@@ -67,6 +67,8 @@ if min_nonzero > 5:
     phdk_distance = metrics.PHDK(mindists_AB, mindists_BA)
     gbeta = metrics.G_beta(A, B, mindists_AB, mindists_BA, beta)
 else:
+    far = 0
+    pod = 0
     hausdorf_distance = -99
     phdk_distance = -99
     gbeta = -99
