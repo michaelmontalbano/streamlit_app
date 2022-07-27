@@ -69,13 +69,19 @@ if min_nonzero > 1:
     hausdorf_distance = metrics.hausdorf(mindists_AB, mindists_BA)
     phdk_distance = metrics.PHDK(mindists_AB, mindists_BA, k_pct)
     gbeta = metrics.G_beta(A, B, mindists_AB, mindists_BA, beta)
+    delta = metrics.delta(A, B)
+    G = metrics.G(A, B, mindists_AB, mindists_BA, beta)
+    zhulak = metrics.zhulak(A, B, mindists_AB)
 else:
     far = 0
     pod = 0
     hausdorf_distance = -99
     phdk_distance = -99
     gbeta = -99
-metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta]}
+    delta = -99
+    G = -99
+    zhulak = 60
+metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta], 'G': [G], 'delta': [delta], 'zhulak': [zhulak]}
 df = pd.DataFrame(metrics_dict)
 
 st.table(df)

@@ -233,6 +233,27 @@ def min_dists(A, B, threshold=20):
 def hausdorf(mindists_AB,mindists_BA):
     return np.maximum(np.amax(mindists_AB), np.amax(mindists_BA))
 
+def delta(A, B):
+    H_A = distance_transform(A)
+    H_B = distance_transform(B)
+    H_A = np.where(H_A > 20, 20, H_A)
+    H_B = np.where(H_B > 20, 20, H_B)
+    delta = H_A - H_B
+    delta = np.square(delta)
+    delta = np.sum(delta)
+    delta = 1/3600 * delta
+    delta = np.sqrt(delta)
+    return delta
+
+def zhulak(A, B, mindists_AB, l1=0.5):
+    l_ovlp = np.mean(np.square(np.subtract(A, B)))
+    n_A = np.sum(A)
+    l_obs = np.sum(mindists_AB)/n_A
+    return l1*l_ovlp + (1-l1)*l_obs
+    
+def w(d):
+    # cutoff transformatioin
+    return np.amin(d, 20)
 
 def samplewise_RMSE(y_true, y_pred):
     # from CIRA guide
@@ -326,10 +347,12 @@ def PHDK(mindists_AB, mindists_BA, k_pct):
     return max(kth_AB, kth_BA)
 
 def G_beta(A,B, mindists_AB, mindists_BA, beta):
+    # low beta means more weight on location errors
+    # sqrt(N)* N up to N**2
     n_A = np.sum(A)
     n_B = np.sum(B)
     n_AB = np.sum(A*B)
-    y1 = n_A + n_B + n_AB
+    y1 = n_A + n_B -2*n_AB
     med_AB = np.mean(mindists_AB) # try median
     med_BA = np.mean(mindists_BA)
     y2 = med_AB*n_B + med_BA*n_A
@@ -337,6 +360,19 @@ def G_beta(A,B, mindists_AB, mindists_BA, beta):
     const = 1 - (y/beta)
     G_beta = const
     return G_beta
+
+def G(A,B, mindists_AB, mindists_BA, beta):
+    # low beta means more weight on location errors
+    # sqrt(N)* N up to N**2
+    n_A = np.sum(A)
+    n_B = np.sum(B)
+    n_AB = np.sum(A*B)
+    y1 = n_A + n_B -2*n_AB
+    med_AB = np.mean(mindists_AB) # try median
+    med_BA = np.mean(mindists_BA)
+    y2 = med_AB*n_B + med_BA*n_A
+    y = y1*y2
+    return y
 
 # find the shortest distance between two set of points as numpy arrays
 def find_coordinates(A):
@@ -361,7 +397,6 @@ def find_shortest_distance(A,B):
     for coord in coord_B:
         distances.append(np.linalg.norm(np.subtract(coord,point)))
     return np.min(distances) 
-
 
 def get_contour_set_2(A):
     # defines contour pixels as white pixels with at least one black neighbor
