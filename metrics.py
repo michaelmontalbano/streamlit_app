@@ -223,6 +223,10 @@ def min_dists(A, B, threshold=20):
     B = np.where(B<threshold, 0, 1)
     H = distance_transform(B)
     min_dists = A*H
+    # flatten mindists
+    min_dists = min_dists.flatten()
+    # keep only nonzero elements
+    min_dists = min_dists[min_dists != 0]
     return min_dists  
 
 def hausdorf(mindists_AB,mindists_BA):
