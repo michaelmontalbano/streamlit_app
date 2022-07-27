@@ -72,7 +72,10 @@ if min_nonzero > 1:
     delta = metrics.delta(A, B)
     G = metrics.G(A, B, mindists_AB, mindists_BA, beta)
     zhulak = metrics.zhulak(A, B, mindists_AB)
+    medFA = np.mean(mindists_BA)
+    medMiss = np.,mean(mindists_AB)
 else:
+
     far = 0
     pod = 0
     hausdorf_distance = -99
@@ -81,7 +84,10 @@ else:
     delta = -99
     G = -99
     zhulak = 60
-metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta], 'G': [G], 'delta': [delta], 'zhulak': [zhulak]}
-df = pd.DataFrame(metrics_dict)
+metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta], 'G': [G], 'delta': [delta]}
 
+metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
+df = pd.DataFrame(metrics_dict)
+df2 = pd.DataFrame(metrics_dict_2)
 st.table(df)
+st.table(df2)
