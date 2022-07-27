@@ -321,7 +321,7 @@ def PHDK(mindists_AB, mindists_BA, k_pct):
     kth_BA = mindists_BA[k]
     return max(kth_AB, kth_BA)
 
-def Gbeta(A,B, mindists_AB, mindists_BA, beta):
+def G_beta(A,B, mindists_AB, mindists_BA, beta):
     n_A = np.sum(A)
     n_B = np.sum(B)
     n_AB = np.sum(A*B)
