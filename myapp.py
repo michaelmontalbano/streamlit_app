@@ -59,7 +59,9 @@ pod_funct = metrics.POD(cutoff)
 A = np.where(img_true > cutoff, 1, 0)
 B = np.where(img_pred > cutoff, 1, 0)
 min_nonzero = min(A.sum(), B.sum())
-if min_nonzero > 5:
+# get mean squared error of img_true and img_pred
+mse = np.mean((img_true - img_pred)**2)
+if min_nonzero > 1:
     far = far_funct(A,B)
     pod = pod_funct(A,B)
     mindists_AB = np.asarray(metrics.min_dists(img_true, img_pred, cutoff))
@@ -73,7 +75,7 @@ else:
     hausdorf_distance = -99
     phdk_distance = -99
     gbeta = -99
-metrics_dict = {'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta]}
+metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta]}
 df = pd.DataFrame(metrics_dict)
 
 st.table(df)
