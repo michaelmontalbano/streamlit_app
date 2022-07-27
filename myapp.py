@@ -73,7 +73,7 @@ if min_nonzero > 1:
     G = metrics.G(A, B, mindists_AB, mindists_BA, beta)
     zhulak = metrics.zhulak(A, B, mindists_AB)
     medFA = np.mean(mindists_BA)
-    medMiss = np.,mean(mindists_AB)
+    medMiss = np.mean(mindists_AB)
 else:
 
     far = 0
