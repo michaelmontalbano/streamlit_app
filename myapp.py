@@ -72,7 +72,7 @@ else:
     hausdorf_distance = -99
     phdk_distance = -99
     gbeta = -99
-metrics_dict = {'FAR': far, 'POD': pod, 'Hausdorff': hausdorf_distance, 'PHDK': phdk_distance, 'Gbeta': gbeta}
+metrics_dict = {'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta]}
 df = pd.DataFrame(metrics_dict)
 
 st.table(df)
