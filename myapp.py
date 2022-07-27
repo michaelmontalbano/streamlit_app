@@ -16,6 +16,7 @@ st.title('Model Prediction Metrics')
 number = st.number_input("Pick a sample number (0-939)",0,939)
 cutoff = st.radio("Pick a cutoff value",[20,25,30,40,60,80])
 multiplier = st.number_input('Pick a multiplier for beta',0,10)
+k_pct = st.number_input('Pick a percentage for k',0,100)
 beta = 12960000*multiplier
 
 y_true = load('data/y_true.npy').squeeze()
