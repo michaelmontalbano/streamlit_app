@@ -225,10 +225,8 @@ def min_dists(A, B, threshold=20):
     min_dists = A*H
     return min_dists  
 
-def hausdorf(A,B):
-    min_dists_AB = min_dists(A,B)
-    min_dists_BA = min_dists(B,A)
-    return np.maximum(max(min_dists_AB), max(min_dists_BA))
+def hausdorf(mindists_AB,mindists_BA):
+    return np.maximum(max(mindists_AB), max(mindists_BA))
 
 
 def samplewise_RMSE(y_true, y_pred):
@@ -305,9 +303,6 @@ def POD(cutoff=15):
         FN = sum(np.where(y_true-y_pred<1.0,0.0,1.0))
         return TP/(TP+FN+0.000001)
     return pod
-
-def hausdorf(mindists_AB,mindists_BA):
-    return np.max(np.max(mindists_AB), np.max(mindists_BA))
 
 def PHDK(mindists_AB, mindists_BA, k_pct):
     len_mindists_AB = len(mindists_AB)
