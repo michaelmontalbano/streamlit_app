@@ -16,12 +16,13 @@ models = ['1','2','3','4']
 datasets = ['all','severe','sig-severe']
 st.title('Model Prediction Metrics')
 model = st.radio("Pick a model.", models)
-number = st.number_input("Pick a sample number (0-939)", 0, 939)
 dataset = st.radio("Pick a dataset.", datasets)
 cutoff = st.number_input("Pick a cutoff value")
 multiplier = st.number_input('Pick a multiplier for beta')
 k_pct = st.number_input('Pick a percentage for k')
 beta = 12960000*multiplier
+number = st.number_input("Pick a sample number (0-939)", 0, 939)
+
 
 coeficients = st.text_input('Enter the coefficients')
     # add multiple elements
