@@ -10,17 +10,31 @@ from matplotlib.colors import rgb2hex
 from settings import MESH_colors, MESH_bounds
 import metrics
 
+# 2: loss-mse_dataset-shave_L2-0.01_drop-0.1_junct-Add_filters-64f128_act-lrelu_cut-30_transpose-1_gain-0.0_bias-0.0_init-normal_variant-unetpp_block-vanilla_exp_index-7_kernel-3_out-act-relu_results.pkl
+
 models = ['1','2','3','4']
+datasets = ['all','severe','sig-severe']
 st.title('Model Prediction Metrics')
 model = st.radio("Pick a model.", models)
 number = st.number_input("Pick a sample number (0-939)", 0, 939)
+dataset = st.radio("Pick a dataset.", datasets)
 cutoff = st.number_input("Pick a cutoff value")
 multiplier = st.number_input('Pick a multiplier for beta')
 k_pct = st.number_input('Pick a percentage for k')
 beta = 12960000*multiplier
 
+
 y_true = load('data/y_true.npy').squeeze()
 y_pred = load(f'data/y_pred_{model}.npy').squeeze()
+
+indices = range(len(y_true))
+if dataset == 'severe':
+    # keep only images where each image in y_true has max above 25
+    indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 25]
+if dataset == 'sig-severe':
+    indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 50]
+y_true = y_true[indices,:,:]
+y_pred = y_pred[indices,:,:]
 
 f, axs = plt.subplots(1,2,figsize=(16,8))
 
@@ -51,6 +65,17 @@ plt.xticks([0,10,20,30,40,50,60])
 plt.yticks([0,10,20,30,40,50,60])
 plt.title(f'Predicted MESH with MSE #{number} (mm)')
 st.pyplot(f)
+
+
+c0 = st.slider('c0', 0, 1, 0.5, 0.01)
+c1 = st.slider('c1', 0, 1, 0.5, 0.01)
+c2 = st.slider('c2', 0, 1, 0.5, 0.01)
+c3 = st.slider('c3', 0, 1, 0.5, 0.01)
+c4 = st.slider('c4', 0, 1, 0.5, 0.01)
+c5 = st.slider('c5', 0, 1, 0.5, 0.01)
+c6 = st.slider('c6', 0, 1, 0.5, 0.01)
+c7 = st.slider('c7', 0, 1, 0.5, 0.01)
+c8 = st.slider('c8', 0, 1, 0.5, 0.01)
 
 far_funct = metrics.FAR(cutoff)
 pod_funct = metrics.POD(cutoff)
@@ -87,7 +112,20 @@ else:
 metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta], 'G': [G], 'delta': [delta]}
 
 metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
+
+loss_1 = mse + c1*hausdorf_distance + c2*phdk_distance + c3*-1*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
+loss_2 = mse + (far-pod)*mse*c0 + c1*hausdorf_distance + c2*phdk_distance + c3*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
+loss_3 = mse + mse*c1*hausdorf_distance + c2*mse*phdk_distance - c3*gbeta*mse + c4*delta*mse + c6*zhulak + c7*medFA + c8*medMiss
+
+loss_dict = {'loss_1': [loss_1], 'loss_2': [loss_2], 'loss_3': [loss_3]}
+coeficients_dict = {'c0': [c0], 'c1': [c1], 'c2': [c2], 'c3': [c3], 'c4': [c4], 'c5': [c5], 'c6': [c6], 'c7': [c7], 'c8': [c8]}
+
 df = pd.DataFrame(metrics_dict)
 df2 = pd.DataFrame(metrics_dict_2)
+df3 = pd.DataFrame(loss_dict)
+df4 = pd.DataFrame(coeficients_dict)
 st.table(df)
 st.table(df2)
+st.table(df3)
+st.table(df4)
+
