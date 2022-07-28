@@ -125,10 +125,10 @@ metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
 # loss_3 = mse + mse*c1*hausdorf_distance + c2*mse*phdk_distance - c3*gbeta*mse + c4*delta*mse + c6*zhulak + c7*medFA + c8*medMiss
 
 loss_1 = mse + mse*cHaus*hausdorf_distance
-loss_2 = mse + mse*cPHDK*phdk_distance
+loss_2 = mse + mse*phdk_distance
 loss_3 = mse + mse*cGbeta*gbeta*-1
 loss_4 = mse + mse*cDelta*delta
-loss_5 = mse + (far-pod)*mse*cCSI + mse*cCSI*cHaus + mse*cCSI*cPHDK - mse*cCSI*cGbeta*gbeta + mse*cCSI*cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
+loss_5 = mse + (far-pod)*mse*cCSI + mse*cHaus*hausdorf_distance + mse*cPHDK*phdk_distance - mse*cGbeta*gbeta + mse*cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
 
 loss_dict = {'Haus': [loss_1], 'PHDK': [loss_2], 'Gbeta': [loss_3], 'Delta': [loss_4], 'All': [loss_5]}
 # coeficients_dict = {'c0': [c0], 'c1': [c1], 'c2': [c2], 'c3': [c3], 'c4': [c4], 'c5': [c5], 'c6': [c6], 'c7': [c7], 'c8': [c8]}
