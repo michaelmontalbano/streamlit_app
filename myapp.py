@@ -23,19 +23,19 @@ multiplier = st.number_input('Pick a multiplier for beta')
 k_pct = st.number_input('Pick a percentage for k')
 beta = 12960000*multiplier
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
     # add multiple elements
-    c0 = st.slider('c_podFAR', 0.0, 1.0, 0.5, 0.01)
-    c1 = st.slider('c_haus', 0.0, 1.0, 0.5, 0.01)
-    c2 = st.slider('c_phdk', 0.0, 1.0, 0.5, 0.01)
-    c3 = st.slider('c_gbeta', 0.0, 1.0, 0.5, 0.01)
-    c4 = st.slider('c_delta', 0.0, 1.0, 0.5, 0.01)
-    c5 = st.slider('c_G', 00.0, 1.0, 0.5, 0.01)
-    c6 = st.slider('c_zhulak', 0.0, 1.0, 0.5, 0.01)
-    c7 = st.slider('c_FA', 0.0, 1.0, 0.5, 0.01)
-    c8 = st.slider('c_Miss', 0.0, 1.0, 0.5, 0.01)
+    c0 = st.number_input('c_podFAR', 0.0, 1.0, 0.5, 0.01)
+    c1 = st.number_input('c_haus', 0.0, 1.0, 0.5, 0.01)
+    c2 = st.number_input('c_phdk', 0.0, 1.0, 0.5, 0.01)
+    c3 = st.number_input('c_gbeta', 0.0, 1.0, 0.5, 0.01)
+    c4 = st.number_input('c_delta', 0.0, 1.0, 0.5, 0.01)
+    c5 = st.number_input('c_G', 00.0, 1.0, 0.5, 0.01)
+    c6 = st.number_input('c_zhulak', 0.0, 1.0, 0.5, 0.01)
+    c7 = st.number_input('c_FA', 0.0, 1.0, 0.5, 0.01)
+    c8 = st.number_input('c_Miss', 0.0, 1.0, 0.5, 0.01)
 
 y_true = load('data/y_true.npy').squeeze()
 y_pred = load(f'data/y_pred_{model}.npy').squeeze()
@@ -78,10 +78,9 @@ plt.xticks([0,10,20,30,40,50,60])
 plt.yticks([0,10,20,30,40,50,60])
 plt.title(f'Predicted MESH with MSE #{number} (mm)')
 with col2:
-    st.pyplot(f)
+    st.pyplot(f, size = 100)
 
-
-
+col3, col4 = st.columns(2)
 
 
 far_funct = metrics.FAR(cutoff)
@@ -134,6 +133,7 @@ df4 = pd.DataFrame(coeficients_dict)
 with col3:
     st.table(df)
     st.table(df2)
+with col4:
     st.table(df3)
     st.table(df4)
 
