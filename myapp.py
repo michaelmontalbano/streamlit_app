@@ -37,7 +37,7 @@ coeficients = st.text_input('Enter the coefficients')
 
 # convert coefficients to list of comma separated floats
 coeficients = coeficients.split(',')
-c0, c1, c2, c3, c4, c5, c6, c7, c8 = [float(i) for i in coeficients]
+cCSI, cHaus, cPHDK, cGbeta, cDelta, cG, cZhu, cFA, cMiss = [float(i) for i in coeficients]
 
 y_true = load('data/y_true.npy').squeeze()
 y_pred = load(f'data/y_pred_{model}.npy').squeeze()
