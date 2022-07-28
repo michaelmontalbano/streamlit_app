@@ -10,9 +10,9 @@ from matplotlib.colors import rgb2hex
 from settings import MESH_colors, MESH_bounds
 import metrics
 
-
+models = ['1','2','3','4']
 st.title('Model Prediction Metrics')
-#model = st.radio("Pick a model.")
+model = st.radio("Pick a model.", models)
 number = st.number_input("Pick a sample number (0-939)", 0, 939)
 cutoff = st.number_input("Pick a cutoff value")
 multiplier = st.number_input('Pick a multiplier for beta')
@@ -20,7 +20,7 @@ k_pct = st.number_input('Pick a percentage for k')
 beta = 12960000*multiplier
 
 y_true = load('data/y_true.npy').squeeze()
-y_pred = load('data/y_pred_1.npy').squeeze()
+y_pred = load(f'data/y_pred_{model}.npy').squeeze()
 
 f, axs = plt.subplots(1,2,figsize=(16,8))
 
