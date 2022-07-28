@@ -119,17 +119,22 @@ metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_d
 
 metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
 
-loss_1 = mse + c1*hausdorf_distance + c2*phdk_distance + c3*-1*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
-loss_2 = mse + (far-pod)*mse*c0 + c1*hausdorf_distance + c2*phdk_distance + c3*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
-loss_3 = mse + mse*c1*hausdorf_distance + c2*mse*phdk_distance - c3*gbeta*mse + c4*delta*mse + c6*zhulak + c7*medFA + c8*medMiss
+# loss_1 = mse + c1*hausdorf_distance + c2*phdk_distance + c3*-1*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
+# loss_2 = mse + (far-pod)*mse*c0 + c1*hausdorf_distance + c2*phdk_distance + c3*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
+# loss_3 = mse + mse*c1*hausdorf_distance + c2*mse*phdk_distance - c3*gbeta*mse + c4*delta*mse + c6*zhulak + c7*medFA + c8*medMiss
+
+loss_1 = mse + cHaus*hausdorf_distance + cPHDK*phdk_distance + cGbeta*-1*gbeta + cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
+loss_2 = mse + (far-pod)*mse*cCSI + cHaus*hausdorf_distance + cPHDK*phdk_distance - cGbeta*gbeta + cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
+loss_3 = mse + mse*cCSI*cHaus + mse*cCSI*cPHDK - mse*cCSI*cGbeta*gbeta + mse*cCSI*cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
 
 loss_dict = {'loss_1': [loss_1], 'loss_2': [loss_2], 'loss_3': [loss_3]}
-coeficients_dict = {'c0': [c0], 'c1': [c1], 'c2': [c2], 'c3': [c3], 'c4': [c4], 'c5': [c5], 'c6': [c6], 'c7': [c7], 'c8': [c8]}
+# coeficients_dict = {'c0': [c0], 'c1': [c1], 'c2': [c2], 'c3': [c3], 'c4': [c4], 'c5': [c5], 'c6': [c6], 'c7': [c7], 'c8': [c8]}
+coefficients_dict = {'cCSI': [cCSI], 'cHaus': [cHaus], 'cPHDK': [cPHDK], 'cGbeta': [cGbeta], 'cDelta': [cDelta], 'cG': [cG], 'cZhu': [cZhu], 'cFA': [cFA], 'cMiss': [cMiss]}
 
 df = pd.DataFrame(metrics_dict)
 df2 = pd.DataFrame(metrics_dict_2)
 df3 = pd.DataFrame(loss_dict)
-df4 = pd.DataFrame(coeficients_dict)
+df4 = pd.DataFrame(coefficients_dict)
 st.table(df)
 st.table(df2)
 st.table(df3)
