@@ -126,7 +126,7 @@ metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
 
 loss_1 = mse + mse*cHaus*hausdorf_distance
 loss_2 = mse + mse*cPHDK*phdk_distance
-loss_3 = mse + mse*cGbeta*gbeta
+loss_3 = mse + mse*cGbeta*gbeta*-1
 loss_4 = mse + mse*cDelta*delta
 loss_5 = mse + (far-pod)*mse*cCSI + mse*cCSI*cHaus + mse*cCSI*cPHDK - mse*cCSI*cGbeta*gbeta + mse*cCSI*cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
 
