@@ -106,7 +106,7 @@ if min_nonzero > 1:
     zhulak = metrics.zhulak(A, B, mindists_AB)
     medFA = np.mean(mindists_BA)
     medMiss = np.mean(mindists_AB)
-    podVilage, farVilage = metrics.neighborhood_stats_by_image(A, B, 10)
+    #podVilage, farVilage = metrics.neighborhood_stats_by_image(A, B, 10)
 else:
 
     far = 0
