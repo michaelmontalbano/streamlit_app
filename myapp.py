@@ -23,6 +23,19 @@ multiplier = st.number_input('Pick a multiplier for beta')
 k_pct = st.number_input('Pick a percentage for k')
 beta = 12960000*multiplier
 
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    # add multiple elements
+    c0 = st.slider('c_podFAR', 0.0, 1.0, 0.5, 0.01)
+    c1 = st.slider('c_haus', 0.0, 1.0, 0.5, 0.01)
+    c2 = st.slider('c_phdk', 0.0, 1.0, 0.5, 0.01)
+    c3 = st.slider('c_gbeta', 0.0, 1.0, 0.5, 0.01)
+    c4 = st.slider('c_delta', 0.0, 1.0, 0.5, 0.01)
+    c5 = st.slider('c_G', 00.0, 1.0, 0.5, 0.01)
+    c6 = st.slider('c_zhulak', 0.0, 1.0, 0.5, 0.01)
+    c7 = st.slider('c_FA', 0.0, 1.0, 0.5, 0.01)
+    c8 = st.slider('c_Miss', 0.0, 1.0, 0.5, 0.01)
 
 y_true = load('data/y_true.npy').squeeze()
 y_pred = load(f'data/y_pred_{model}.npy').squeeze()
@@ -64,18 +77,12 @@ plt.xlim([0,60])
 plt.xticks([0,10,20,30,40,50,60])
 plt.yticks([0,10,20,30,40,50,60])
 plt.title(f'Predicted MESH with MSE #{number} (mm)')
-st.pyplot(f)
+with col2:
+    st.pyplot(f)
 
-with st.sidebar.subheader('Loss Coefficients'):
-    c0 = st.slider('c_podFAR', 0.0, 1.0, 0.5, 0.01)
-    c1 = st.slider('c_haus', 0.0, 1.0, 0.5, 0.01)
-    c2 = st.slider('c_phdk', 0.0, 1.0, 0.5, 0.01)
-    c3 = st.slider('c_gbeta', 0.0, 1.0, 0.5, 0.01)
-    c4 = st.slider('c_delta', 0.0, 1.0, 0.5, 0.01)
-    c5 = st.slider('c_G', 00.0, 1.0, 0.5, 0.01)
-    c6 = st.slider('c_zhulak', 0.0, 1.0, 0.5, 0.01)
-    c7 = st.slider('c_FA', 0.0, 1.0, 0.5, 0.01)
-    c8 = st.slider('c_Miss', 0.0, 1.0, 0.5, 0.01)
+
+
+
 
 far_funct = metrics.FAR(cutoff)
 pod_funct = metrics.POD(cutoff)
@@ -124,8 +131,9 @@ df = pd.DataFrame(metrics_dict)
 df2 = pd.DataFrame(metrics_dict_2)
 df3 = pd.DataFrame(loss_dict)
 df4 = pd.DataFrame(coeficients_dict)
-st.table(df)
-st.table(df2)
-st.table(df3)
-st.table(df4)
+with col3:
+    st.table(df)
+    st.table(df2)
+    st.table(df3)
+    st.table(df4)
 
