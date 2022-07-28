@@ -106,6 +106,7 @@ if min_nonzero > 1:
     zhulak = metrics.zhulak(A, B, mindists_AB)
     medFA = np.mean(mindists_BA)
     medMiss = np.mean(mindists_AB)
+    podVilage, farVilage = metrics.neighborhood_stats_by_image(A, B, 10)
 else:
 
     far = 0
@@ -116,9 +117,10 @@ else:
     delta = -99
     G = -99
     zhulak = 60
+
 metrics_dict = {'MSE': mse, 'FAR': [far], 'POD': [pod], 'Hausdorff': [hausdorf_distance], 'PHDK': [phdk_distance], 'Gbeta': [gbeta], 'G': [G], 'delta': [delta]}
 
-metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss]}
+metrics_dict_2 = {'zhulak': [zhulak], 'medFA': [medFA], 'medMiss': [medMiss], 'podVilage': [podVilage], 'farVilage': [farVilage]}
 
 # loss_1 = mse + c1*hausdorf_distance + c2*phdk_distance + c3*-1*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
 # loss_2 = mse + (far-pod)*mse*c0 + c1*hausdorf_distance + c2*phdk_distance + c3*gbeta + c4*delta + c5*G + c6*zhulak + c7*medFA + c8*medMiss
