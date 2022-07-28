@@ -130,7 +130,7 @@ loss_3 = mse + mse*cGbeta*gbeta
 loss_4 = mse + mse*cDelta*delta
 loss_5 = mse + (far-pod)*mse*cCSI + mse*cCSI*cHaus + mse*cCSI*cPHDK - mse*cCSI*cGbeta*gbeta + mse*cCSI*cDelta*delta + cG*G + cZhu*zhulak + cFA*medFA + cMiss*medMiss
 
-loss_dict = {'loss_1': [loss_1], 'loss_2': [loss_2], 'loss_3': [loss_3]}
+loss_dict = {'Haus': [loss_1], 'PHDK': [loss_2], 'Gbeta': [loss_3], 'Delta': [loss_4], 'All': [loss_5]}
 # coeficients_dict = {'c0': [c0], 'c1': [c1], 'c2': [c2], 'c3': [c3], 'c4': [c4], 'c5': [c5], 'c6': [c6], 'c7': [c7], 'c8': [c8]}
 coefficients_dict = {'cCSI': [cCSI], 'cHaus': [cHaus], 'cPHDK': [cPHDK], 'cGbeta': [cGbeta], 'cDelta': [cDelta], 'cG': [cG], 'cZhu': [cZhu], 'cFA': [cFA], 'cMiss': [cMiss]}
 
@@ -138,8 +138,9 @@ df = pd.DataFrame(metrics_dict)
 df2 = pd.DataFrame(metrics_dict_2)
 df3 = pd.DataFrame(loss_dict)
 df4 = pd.DataFrame(coefficients_dict)
+st.table(df3)
 st.table(df)
 st.table(df2)
-st.table(df3)
+
 st.table(df4)
 
