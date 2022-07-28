@@ -1,6 +1,5 @@
 import numpy as np
 import math
-import cv2
 
 def to_tensor(a):
     return tf.convert_to_tensor(a, dtype=tf.float32)
