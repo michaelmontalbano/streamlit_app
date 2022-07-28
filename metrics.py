@@ -1,6 +1,6 @@
 import numpy as np
 import math
-
+import cv2
 
 def to_tensor(a):
     return tf.convert_to_tensor(a, dtype=tf.float32)
@@ -293,6 +293,27 @@ def neighborhood_stats(y_true, y_pred, thres, n):
         # get CSI
         CSI = (true_positives + false_negatives) / (true_positives + false_positives + false_negatives + true_negatives)
     return POD, FAR, CSI, precision
+
+def neighborhood_stats_by_image(truth, pred, n):
+    # dilate image by n x n filter
+    dilated_image = cv2.dilate(pred, np.ones((n,n), np.uint8))
+    # get true positives
+    true_positives = np.sum(np.logical_and(dilated_image, truth))
+    # get false positives
+    false_positives = np.sum(np.logical_and(dilated_image, np.logical_not(truth)))
+    # get false negatives
+    false_negatives = np.sum(np.logical_and(np.logical_not(dilated_image), truth))
+    # get true negatives
+    true_negatives = np.sum(np.logical_and(np.logical_not(dilated_image), np.logical_not(truth)))
+    # calculate precision  
+    precision = true_positives / (true_positives + false_positives)
+    # get POD
+    POD = true_positives / (true_positives + false_negatives)
+    # get FAR
+    FAR = false_positives / (false_positives + true_negatives)
+    # get CSI
+    CSI = (true_positives + false_negatives) / (true_positives + false_positives + false_negatives + true_negatives)    
+    return POD, FAR
 
 def CSI(cutoff=20):
     # From CIRA guide to loss functions, with slight differences        
