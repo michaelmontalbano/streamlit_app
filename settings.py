@@ -22,8 +22,11 @@ ref_b = [0,130,120,148,2,1,2,0,0,0,16,199,161,199]
 ref_bounds = [-10,10,13,18,28,33,38,43,48,53,63,68,73,77]
 wind_bounds = [-30,-25,-20,-15,-10,-5,-1,1,5,10,15,20,25,30]
 
-wind_colors = []
-ref_colors = []
-for idx, color in enumerate(uwind_r):
-    wind_colors.append(str('#%02x%02x%02x' % (int(color,16),int(uwind_g[idx],16),int(uwind_b[idx],16))))
-    ref_colors.append(str('#%02x%02x%02x' % (ref_r[idx],ref_g[idx],ref_b[idx])))
+wind_colors = ['#0080ff', '#0000ff', '#007f00', '#00bf00', '#00ff00', '#bfff00', '#ffff00', '#ffbf00', '#ff9900', '#bf0000', '#7f0000', '#ff33ff']
+ref_colors = ['#000000', '#736282', '#787878', '#94a494', '#02c702', '#117901', '#c7c402', '#b88f00', '#c77100', '#c70000', '#990010', '#c400c7']
+# for idx, color in enumerate(uwind_r):
+#     wind_colors.append(str('#%02x%02x%02x' % (int(color,16),int(uwind_g[idx],16),int(uwind_b[idx],16))))
+#     ref_colors.append(str('#%02x%02x%02x' % (ref_r[idx],ref_g[idx],ref_b[idx])))
+
+print(wind_colors)
+print(ref_colors)
