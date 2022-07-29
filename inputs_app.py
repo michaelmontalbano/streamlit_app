@@ -24,7 +24,7 @@ shave_degrees = ['01.00','02.00','03.00','04.00','05.00','06.00','07.00','08.00'
 shave_fields=multi_fields+NSE_fields+shave_degrees
 
 # convert coefficients to list of comma separated floats
-x_test =  load('x_test.npy')
+x_test =  load('data/x_test.npy')
 y_true = load('data/y_true.npy').squeeze()
 
 indices = range(len(y_true))
