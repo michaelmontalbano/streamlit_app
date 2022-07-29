@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.cm as cm
 from matplotlib.colors import rgb2hex
-from settings import MESH_colors, MESH_bounds, shear_colors, shear_bounds, ref_colors, ref_bounds, wind_colors, wind_bounds
+from settings import MESH_colors, MESH_bounds
+#, shear_colors, shear_bounds, ref_colors, ref_bounds, wind_colors, wind_bounds
 import metrics
 
 # 2: loss-mse_dataset-shave_L2-0.01_drop-0.1_junct-Add_filters-64f128_act-lrelu_cut-30_transpose-1_gain-0.0_bias-0.0_init-normal_variant-unetpp_block-vanilla_exp_index-7_kernel-3_out-act-relu_results.pkl

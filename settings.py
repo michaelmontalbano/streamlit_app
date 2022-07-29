@@ -27,6 +27,3 @@ ref_colors = ['#000000', '#736282', '#787878', '#94a494', '#02c702', '#117901', 
 # for idx, color in enumerate(uwind_r):
 #     wind_colors.append(str('#%02x%02x%02x' % (int(color,16),int(uwind_g[idx],16),int(uwind_b[idx],16))))
 #     ref_colors.append(str('#%02x%02x%02x' % (ref_r[idx],ref_g[idx],ref_b[idx])))
-
-print(wind_colors)
-print(ref_colors)
