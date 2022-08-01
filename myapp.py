@@ -60,6 +60,9 @@ img_pred = y_pred[number]
 img_true = np.rot90(img_true)
 img_pred = np.rot90(img_pred)
 
+img_true = np.rot90(img_true)
+img_pred = np.rot90(img_pred)
+
 plt.subplot(121)
 ax = plt.gca()
 cs = plt.contourf(img_true,levels=MESH_bounds,colors=MESH_colors, extend='both',orientation='horizontal', shrink=0.5, spacing='proportional')   
