@@ -64,7 +64,7 @@ img_pred = y_pred[number]
 # img_pred = np.rot90(img_pred)
 
 plt.subplot(121)
-cs = plt.contourf(img_true,levels=MESH_bounds,colors=MESH_colors, extend='both',, shrink=0.5, origin=None)   
+cs = plt.contourf(img_true,levels=MESH_bounds,colors=MESH_colors, extend='both', shrink=0.5, origin=None)   
 plt.colorbar(cs, ticks=MESH_bounds)
 f.tight_layout(pad=3.0)
 plt.ylabel('y (1/2 km)')
