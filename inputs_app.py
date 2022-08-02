@@ -36,6 +36,7 @@ if dataset == 'sig-severe':
 y_true = y_true[indices,:,:]
 x_true = x_test[indices,:,:,:]
 
+real_index = indices[number]
 
 
 input = x_true[number]
@@ -72,7 +73,7 @@ plt.xlabel('x (1/2 km)')
 plt.xlim([0,60])
 plt.xticks([0,10,20,30,40,50,60])
 plt.yticks([0,10,20,30,40,50,60])
-plt.title(f'Predicted MESH with MSE #{number} (mm)')
+plt.title(f'Predicted MESH with MSE #{real_index} (mm)')
 #
 
 
