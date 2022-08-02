@@ -45,6 +45,8 @@ field_index = st.number_input("Pick a field", 0, len(multi_fields)-1)
 
 field = input[field_index]
 
+st.title(real_index)
+
 # get figure name it f
 f = plt.figure(figsize=(10,10))
 plt.imshow(field.squeeze())
