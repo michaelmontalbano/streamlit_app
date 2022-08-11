@@ -12,7 +12,7 @@ import metrics
 
 # 2: loss-mse_dataset-shave_L2-0.01_drop-0.1_junct-Add_filters-64f128_act-lrelu_cut-30_transpose-1_gain-0.0_bias-0.0_init-normal_variant-unetpp_block-vanilla_exp_index-7_kernel-3_out-act-relu_results.pkl
 
-models = ['2','10']
+models = ['2','6','7','10']
 datasets = ['all','severe','sig-severe']
 st.title('Model Prediction Metrics')
 model = st.radio("Pick a model.", models)
@@ -25,16 +25,7 @@ number = st.number_input("Pick a sample number (0-939)", 0, 939)
 
 
 coeficients = st.text_input('Enter the coefficients')
-    # add multiple elements
-    # c0 = st.number_input('c_podFAR', 0.0, 1.0, 0.5, 0.01)
-    # c1 = st.number_input('c_haus', 0.0, 1.0, 0.5, 0.01)
-    # c2 = st.number_input('c_phdk', 0.0, 1.0, 0.5, 0.01)
-    # c3 = st.number_input('c_gbeta', 0.0, 1.0, 0.5, 0.01)
-    # c4 = st.number_input('c_delta', 0.0, 1.0, 0.5, 0.01)
-    # c5 = st.number_input('c_G', 00.0, 1.0, 0.5, 0.01)
-    # c6 = st.number_input('c_zhulak', 0.0, 1.0, 0.5, 0.01)
-    # c7 = st.number_input('c_FA', 0.0, 1.0, 0.5, 0.01)
-    # c8 = st.number_input('c_Miss', 0.0, 1.0, 0.5, 0.01)
+
 
 # convert coefficients to list of comma separated floats
 coeficients = coeficients.split(',')
