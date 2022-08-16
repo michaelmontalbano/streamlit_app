@@ -12,7 +12,7 @@ import metrics
 
 # 2: loss-mse_dataset-shave_L2-0.01_drop-0.1_junct-Add_filters-64f128_act-lrelu_cut-30_transpose-1_gain-0.0_bias-0.0_init-normal_variant-unetpp_block-vanilla_exp_index-7_kernel-3_out-act-relu_results.pkl
 
-models = ['2','6','7','10']
+models = ['1','6','7','10']
 datasets = ['all','severe','sig-severe']
 st.title('Model Prediction Metrics')
 model = st.radio("Pick a model.", models)
