@@ -33,18 +33,19 @@ cCSI, cHaus, cPHDK, cGbeta, cDelta, cG, cZhu, cFA, cMiss = [float(i) for i in co
 if int(model) < 11:
     y_true = load('data/y_true.npy').squeeze()
     y_pred = load(f'data/y_pred_{model}.npy').squeeze()
+    indices = range(len(y_true))
+    if dataset == 'severe':
+        # keep only images where each image in y_true has max above 25
+        indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 25]
+    if dataset == 'sig-severe':
+        indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 50]
+    y_true = y_true[indices,:,:]
+    y_pred = y_pred[indices,:,:]
 else:
     y_true = load('data/y_true_24f48f96.npy').squeeze()
     y_pred = load('data/y_pred_24f48f96.npy').squeeze()
 
-indices = range(len(y_true))
-if dataset == 'severe':
-    # keep only images where each image in y_true has max above 25
-    indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 25]
-if dataset == 'sig-severe':
-    indices = [x for x,y in zip(range(len(y_true)),y_true) if np.max(y) > 50]
-y_true = y_true[indices,:,:]
-y_pred = y_pred[indices,:,:]
+
 
 f, axs = plt.subplots(1,2,figsize=(16,8))
 
