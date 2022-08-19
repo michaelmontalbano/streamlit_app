@@ -12,7 +12,7 @@ import metrics
 
 # 2: loss-mse_dataset-shave_L2-0.01_drop-0.1_junct-Add_filters-64f128_act-lrelu_cut-30_transpose-1_gain-0.0_bias-0.0_init-normal_variant-unetpp_block-vanilla_exp_index-7_kernel-3_out-act-relu_results.pkl
 
-models = ['1','6','7','10']
+models = ['1','6','7','10','11']
 datasets = ['all','severe','sig-severe']
 st.title('Model Prediction Metrics')
 model = st.radio("Pick a model.", models)
@@ -30,9 +30,12 @@ coeficients = st.text_input('Enter the coefficients')
 # convert coefficients to list of comma separated floats
 coeficients = coeficients.split(',')
 cCSI, cHaus, cPHDK, cGbeta, cDelta, cG, cZhu, cFA, cMiss = [float(i) for i in coeficients]
-
-y_true = load('data/y_true.npy').squeeze()
-y_pred = load(f'data/y_pred_{model}.npy').squeeze()
+if int(model) < 11:
+    y_true = load('data/y_true.npy').squeeze()
+    y_pred = load(f'data/y_pred_{model}.npy').squeeze()
+else:
+    y_true = load('data/y_true_24f48f96.npy').squeeze()
+    y_pred = load('data/y_pred_24f48f96.npy').squeeze()
 
 indices = range(len(y_true))
 if dataset == 'severe':
